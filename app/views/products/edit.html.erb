@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sửa sản phẩm</title>
+  <style>
+    /* Thêm CSS cho menu */
+    .navbar {
+      background-color: #333;
+      overflow: hidden;
+    }
+
+    .navbar a {
+      float: left;
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 20px;
+      text-decoration: none;
+    }
+
+    .navbar a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    /* CSS cho tiêu đề */
+    h1 {
+      color: black;
+      background-color: white;
+      padding: 10px 20px;
+      border-radius: 12px;
+      text-align: center;
+      margin: 20px auto;
+      width: fit-content;
+    }
+
+    /* CSS cho form */
+    .field {
+      margin-bottom: 15px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .field input, .field textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .actions {
+      text-align: center;
+    }
+
+    .actions input {
+      padding: 10px 20px;
+      border-radius: 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .actions input:hover {
+      background-color: #45a049;
+    }
+
+    /* Hiển thị hình ảnh sản phẩm đã chọn */
+    .image-preview {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Tiêu đề "Sửa sản phẩm" -->
+  <h1>Sửa sản phẩm</h1>
+
+  <!-- Form sửa sản phẩm -->
+  <%= form_for @product do |f| %>
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+    </div>
+
+    <div class="field">
+      <%= f.label :inventory_count %>
+      <%= f.number_field :inventory_count %>
+    </div>
+
+    <div class="field">
+      <%= f.label :featured_image %>
+      <!-- Hiển thị hình ảnh sản phẩm đã chọn -->
+      <% if @product.featured_image.attached? %>
+        <img src="<%= url_for(@product.featured_image) %>" alt="Current Product Image" class="image-preview" />
+      <% end %>
+      <%= f.file_field :featured_image, onchange: "previewImage(event)" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Cập nhật sản phẩm" %>
+    </div>
+  <% end %>
+
+  <script>
+    

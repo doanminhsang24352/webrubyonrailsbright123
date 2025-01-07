@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column; /* Align elements vertically */
+      height: 100vh;
+      background-color: #f1f1f1;
+    }
+
+   
+    /* Login Form */
+    .login {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 330px;
+  text-align: center;
+  margin-top: 80px; /* Add space for the fixed menu */
+}
+
+    .login__title {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .login__inputs {
+      margin-bottom: 20px;
+    }
+
+    .login__box {
+  position: relative;
+  margin-bottom: 20px;
+  width: 270px; /* Thu nhỏ chiều rộng khung nhập chữ */
+  margin-left: auto;
+  margin-right: auto; /* Center the boxes */
+  margin-left: 5px; /* Đẩy qua bên trái 20px */
+}
+
+.login__input {
+  width: 100%; /* Đảm bảo input chiếm hết chiều rộng của box */
+  padding: 10px 30px 10px 35px; /* Adjusted padding for space between icon and text */
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  font-size: 16px;
+}
+
+    .login__input:focus {
+      border-color: #4CAF50;
+    }
+
+    .login__box i {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: black; /* Icon color is black */
+    }
+
+    .login__check {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .login__check-box {
+      display: flex;
+      align-items: center;
+    }
+
+    .login__check-label {
+      margin-left: 8px;
+      font-size: 14px;
+    }
+
+    .login__forgot {
+      color: #333; /* Changed to dark gray */
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .login__forgot:hover {
+      text-decoration: underline;
+    }
+
+    .login__button {
+      width: 100%;
+      padding: 15px; /* Increased padding for a bigger button */
+      background-color: #333; /* Dark gray background for button */
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .login__button:hover {
+      background-color: #555; /* Slightly lighter gray on hover */
+    }
+
+    .login__register {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .login__register a {
+      color: #333; /* Changed to dark gray */
+      text-decoration: none;
+    }
+
+    .login__register a:hover {
+      text-decoration: underline;
+    }
+
+    .flash-message {
+      text-align: center;
+      padding: 10px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+
+    .flash-alert {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .flash-notice {
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
+
+  <title>Login Form</title>
+</head>
+<body>
+
+  <!-- Menu Bar (fixed at the top) -->
+ 
+
+  <!-- Login Form -->
+  <div class="login">
+    <!-- Display flash messages -->
+    <%= tag.div(flash[:alert], class: "flash-message flash-alert") if flash[:alert] %>
+    <%= tag.div(flash[:notice], class: "flash-message flash-notice") if flash[:notice] %>
+
+    <!-- Login form -->
+    <%= form_with url: session_path, method: :post, class: "login__form" do |form| %>
+      <h1 class="login__title">Login</h1>
+
+      <div class="login__inputs">
+        <div class="login__box">
+          <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Email ID", value: params[:email_address], class: "login__input" %>
+          <i class="ri-mail-fill"></i>
+        </div>
+
+        <div class="login__box">
+          <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Password", maxlength: 72, class: "login__input" %>
+          <i class="ri-lock-2-fill"></i>
+        </div>
+      </div>
+
+      <div class="login__check">
+        <div class="login__check-box">
+          <input type="checkbox" class="login__check-input" id="user-check">
+          <label for="user-check" class="login__check-label">Remember me</label>
+        </div>
+        <a href="<%= new_password_path %>" class="login__forgot">Forgot Password?</a>
+      </div>
+
+      <button type="submit" class="login__button">Sign In</button>
+
+      <div class="login__register">
+        Don't have an account? <a href="#">Register</a>
+      </div>
+    <% end %>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details</title>
+  <style>
+    /* CSS cho thanh menu */
+    .navbar {
+      background-color: #333; /* Màu xám đen */
+      padding: 10px;
+      text-align: center; /* Căn giữa nội dung bên trong navbar */
+    }
+
+      .menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Căn giữa các mục trong menu */
+    padding-right: 930px; /* Khoảng cách giữa đầu menu và các mục */
+    }
+
+
+    .menu-item {
+      text-decoration: none;
+      color: white;
+      padding: 10px 20px;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .menu-item:hover {
+      color: red;
+    }
+
+    /* CSS cho khung sản phẩm */
+    .product-card {
+      background-color: #f5f5f5; /* Màu trắng sữa */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .product-image img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 15px;
+    }
+
+    .product-name {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      transition: color 0.3s ease;
+    }
+
+    .product-name:hover {
+      color: red;
+    }
+
+    .product-description {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    .product-stock {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      background-color: #e0e0e0;
+      padding: 10px;
+    }
+
+    .btn-action {
+      text-decoration: none;
+      color: black;
+      padding: 10px 20px;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .btn-action:hover {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Thanh menu -->
+  <nav class="navbar">
+    <ul class="menu">
+      <li><a href="/" class="menu-item">Home</a></li>
+    </ul>
+  </nav>
+
+  <!-- Khung sản phẩm -->
+  <section class="product-card">
+    <div class="product-image">
+      <%= image_tag @product.featured_image, alt: @product.name %>
+    </div>
+
+    <div class="product-info">
+      <h2 class="product-name"><%= @product.name %></h2>
+      <p class="product-description"><%= @product.description %></p>
+      <p class="product-stock">Quantity: <%= @product.inventory_count %></p>
+
+      <div class="actions">
+        <%= link_to 'Back', products_path, class: "btn-action" %>
+        <%= link_to 'Edit', edit_product_path(@product), class: "btn-action" %>
+        <%= button_to 'Delete', product_path(@product), method: :delete, class: "btn-action" %>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
